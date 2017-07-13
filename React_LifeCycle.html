@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React Demo</title>
+    <script src="https://npmcdn.com/react@15.3.0/dist/react.js"></script>
+    <script src="https://npmcdn.com/react-dom@15.3.0/dist/react-dom.js"></script>
+    <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
+  </head>
+  
+  <body>
+
+    <div id="app">
+    </div>
+
+	<script type="text/babel">
+
+		  var ReactApp = React.createClass({
+			  
+				getInitialState : function() {
+					
+					return { data : 0 };
+				},
+				
+				setNewNumber() {
+				   this.setState({data: this.state.data + 1})
+				},
+
+				render() {
+					return (
+						<div>
+							<button onClick = {this.setNewNumber}>INCREMENT</button>
+							<Content myNumber = {this.state.data}></Content>
+						</div>
+					);
+				}
+		  });
+		  
+		  var Content = React.createClass( {
+		  
+			componentWillMount() {
+				console.log('Component WILL MOUNT!')
+			},
+
+			componentDidMount() {
+			   console.log('Component DID MOUNT!')
+			},
+
+			componentWillReceiveProps(newProps) {    
+			   console.log('Component WILL RECIEVE PROPS!')
+			},
+
+			shouldComponentUpdate(newProps, newState) {
+			   return true;
+			},
+
+			componentWillUpdate(nextProps, nextState) {
+			   console.log('Component WILL UPDATE!');
+			},
+
+			componentDidUpdate(prevProps, prevState) {
+			   console.log('Component DID UPDATE!')
+			},
+
+			componentWillUnmount() {
+			   console.log('Component WILL UNMOUNT!')
+			},
+			
+		   render() {
+			  return (
+				 <div>
+					<h3>{this.props.myNumber}</h3>
+				 </div>
+			  );
+		   }
+			
+		  });
+		  ReactDOM.render(<ReactApp/>, document.getElementById('app'));
+
+		  setTimeout(() => {
+			  ReactDOM.unmountComponentAtNode(document.getElementById('app'));}, 10000);
+		</script>
+
+	</body>
+</html>
